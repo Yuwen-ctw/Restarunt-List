@@ -13,9 +13,18 @@ app.engine('handlebars',exphbs({defaultLayout: 'main'}))
   // set static files
 app.use(express.static('public'))
 
-  // Routes setting
+
+// Routes setting
+  //index page
 app.get('/', (req, res) => {
   res.render('index', { restaurant: restaurantData.results})
+})
+  //show pages
+app.get('/restaurants/:id', (req, res) => {
+  restaurant = restaurantData.results.find(item => {
+    return item.id.toString() === req.params.id.toString()
+  })
+  res.render('show', { restaurant: restaurant })
 })
 
 

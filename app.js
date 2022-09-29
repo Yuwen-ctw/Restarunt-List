@@ -21,10 +21,18 @@ app.get('/', (req, res) => {
 })
   //show pages
 app.get('/restaurants/:id', (req, res) => {
-  restaurant = restaurantData.results.find(item => {
+  const restaurant = restaurantData.results.find(item => {
     return item.id.toString() === req.params.id.toString()
   })
   res.render('show', { restaurant: restaurant })
+})
+  //search index
+app.get('/search?', (req, res) => {
+  const filterRestaurants = restaurantData.results.filter(item => {
+    const concatString = item.name.concat(" ", item.name_en, " ", item.category).toLowerCase()
+    return concatString.includes(req.query.keyword.toLowerCase().trim())
+  })
+  res.render('index', { restaurant: filterRestaurants, keyword: req.query.keyword })
 })
 
 

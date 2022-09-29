@@ -29,6 +29,7 @@ app.get('/restaurants/:id', (req, res) => {
   //search index
 app.get('/search?', (req, res) => {
   const filterRestaurants = restaurantData.results.filter(item => {
+    //combining strings before filter
     const concatString = item.name.concat(" ", item.name_en, " ", item.category).toLowerCase()
     return concatString.includes(req.query.keyword.toLowerCase().trim())
   })

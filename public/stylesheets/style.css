@@ -53,10 +53,19 @@ header {
 .card {
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
 }
-.card img {
-  height: auto;
+.img-wrapper {
+  overflow: hidden;
 }
-
+.card img {
+  object-fit: cover;
+  object-position: center;
+  height: 40vh;
+}
+.card img:hover{
+  background-size: cover;
+  scale: 1.5;
+  transition: all 1s;
+}
 .card-title {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -80,7 +89,7 @@ header {
 @media screen and (max-width: 992px) {
 
   .card img {
-    height: 115px;
+    /* height: 115px; */
   }
 }
 
@@ -94,7 +103,7 @@ header {
 @media screen and (max-width: 575px) {
 
   .card img {
-    height: auto;
+    height: 50vh;
   }
 
 }

@@ -1,14 +1,21 @@
 // Require package
 const express = require('express')
-
+const exphbs = require('express-handlebars')
+const restaurantData = require('./restaurant.json')
 const app = express()
+
 
 // Server setting
 const port = 3000
+  // set view engine and layout
+app.set('view engine', 'handlebars')
+app.engine('handlebars',exphbs({defaultLayout: 'main'}))
+  // set static files
+app.use(express.static('public'))
 
-// Routes setting
+  // Routes setting
 app.get('/', (req, res) => {
-  res.send('Init project server')
+  res.render('index', { restaurant: restaurantData.results})
 })
 
 

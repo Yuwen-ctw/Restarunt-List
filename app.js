@@ -4,38 +4,37 @@ const exphbs = require('express-handlebars')
 const restaurantData = require('./restaurant.json')
 const app = express()
 
-
 // Server setting
 const port = 3000
-  // set view engine and layout
+// set view engine and layout
 app.set('view engine', 'handlebars')
-app.engine('handlebars',exphbs({defaultLayout: 'main'}))
-  // set static files
+app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
+// set static files
 app.use(express.static('public'))
 
-
 // Routes setting
-  //index page
+// index page
 app.get('/', (req, res) => {
-  res.render('index', { restaurant: restaurantData.results})
+  res.render('index', { restaurants: restaurantData.results })
 })
-  //show pages
+// show pages
 app.get('/restaurants/:id', (req, res) => {
   const restaurant = restaurantData.results.find(item => {
     return item.id.toString() === req.params.id.toString()
   })
-  res.render('show', { restaurant: restaurant })
+  res.render('show', { restaurant })
 })
-  //search index
+// search index
 app.get('/search?', (req, res) => {
   const filterRestaurants = restaurantData.results.filter(item => {
-    //combining strings before filter
-    const concatString = item.name.concat(" ", item.name_en, " ", item.category).toLowerCase()
+    // combining strings before filter
+    const concatString = item.name.concat(' ', item.name_en, ' ', item.category).toLowerCase()
     return concatString.includes(req.query.keyword.toLowerCase().trim())
   })
   res.render('index', { restaurant: filterRestaurants, keyword: req.query.keyword })
 })
 
-
 // Run Express server
-app.listen(port, () => { console.log(`Express is running on localhost:${port}`)})
+app.listen(port, () => {
+  console.log(`Express is running on localhost:${port}`)
+})
